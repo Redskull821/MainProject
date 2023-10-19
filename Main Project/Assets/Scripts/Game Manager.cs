@@ -8,13 +8,16 @@ public class Tracker : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI roundTrackerText; 
-    private float roundTracker = 0f;
-    private float turnTracker = 0f;
+    private float roundTracker;
+    private float turnTracker;
+    [SerializeField] float playerHealth = 10f;
+    [SerializeField] float enemyHealth = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        roundTracker = 1f;
+        turnTracker = 1f;
     }
 
     // Update is called once per frame
@@ -23,9 +26,9 @@ public class Tracker : MonoBehaviour
 
     }
 
-    private void StartGame()
+    public void StartGame()
     {
-        //??
+        SceneManager.LoadScene(1);
     }
 
     private void RoundIncrease()
