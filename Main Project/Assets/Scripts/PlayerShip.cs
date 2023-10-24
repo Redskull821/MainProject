@@ -17,7 +17,7 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if collisiion detected, perform Hit()
+        // if hit, perform Hit()
     }
 
     public void Status(bool status)
@@ -25,14 +25,17 @@ public class PlayerShip : MonoBehaviour
         isEnemy = status;
     }
 
-    private void Hit(float dmg)
+    public bool CheckStatus()
     {
-        // destroy object on collision
-        // subtract damage from health total
-        // if health is <= 0, destroy the ship
+        return isEnemy;
     }
 
-    private void Move()
+    private void Hit()
+    {
+        health -= 2;
+    }
+
+    public void Move()
     {
         // check if object is infront of ship
         // if not

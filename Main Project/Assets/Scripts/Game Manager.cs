@@ -12,8 +12,8 @@ public class Tracker : MonoBehaviour
     [SerializeField] float enemyHealth = 10f;
     private float roundTracker = 0f;
     private float turnTracker = 0f;
-    GameObject[] savedPlayerShips;
-    GameObject[] activeShips;
+    PlayerShip[] savedPlayerShips;
+    PlayerShip[] activeShips;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +46,7 @@ public class Tracker : MonoBehaviour
     private void RoundEnd()
     {
         ResetTurn();
+        // ???
     }
 
     public void StartGame()
