@@ -27,15 +27,13 @@ public class Tracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // run through activeShips
-        //      perform Move() for each ship
-        // clear activeShips
-        // grab all ships, put them into activeShips
         for (int i =0; i < activeShips.Length; i++)
         {
             PlayerShip ship = activeShips[i];
             ship.Move();
         }
+        // clear activeShips
+        // grab all ships, put them into activeShips
         TurnIncrease();
         if (enemyHealth <= 0)
         {
