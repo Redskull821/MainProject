@@ -33,11 +33,15 @@ public class GameManager : MonoBehaviour
         for (int i =0; i < activeShips.Length; i++)
         {
             PlayerShip ship = activeShips[i];
+
             ship.Move();
         }
+
         // clear activeShips
         // grab all ships, put them into activeShips
+
         TurnIncrease();
+
         if (enemyHealth <= 0)
         {
             RoundEnd();
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
         */
 
         // Testing RoundIncrease(), TurnIncrease(), RoundEnd() and ResetTurn()
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (roundEndText.IsActive())
             {
