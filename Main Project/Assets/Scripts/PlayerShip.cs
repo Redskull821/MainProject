@@ -20,6 +20,15 @@ public class PlayerShip : MonoBehaviour
         // if hit, perform Hit()
     }
 
+    public void Move()
+    {
+        // check if object is infront of ship
+        // if not
+        //      move forward one square
+        // else if object is enemy ship
+        //      Attack()
+    }
+
     public void Status(bool status)
     {
         isEnemy = status;
@@ -33,15 +42,6 @@ public class PlayerShip : MonoBehaviour
     private void Hit()
     {
         health -= 2;
-    }
-
-    public void Move()
-    {
-        // check if object is infront of ship
-        // if not
-        //      move forward one square
-        // else if object is enemy ship
-        //      Attack()
     }
 
     private void Attack()

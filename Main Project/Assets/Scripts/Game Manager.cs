@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float enemyHealth = 10f;
     private float roundTracker = 0f;
     private float turnTracker = 0f;
-    PlayerShip[] savedPlayerShips;
+    //PlayerShip[] savedPlayerShips;
     PlayerShip[] activeShips;
 
     // Start is called before the first frame update
@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     {
         //RoundIncrease();
         //TurnIncrease();
-        // grab all player ships and store them in savedPlayerShips
         // grab all ships, and put them into activeShips
+
+        // grab all player ships and store them in savedPlayerShips
     }
 
     // Update is called once per frame
