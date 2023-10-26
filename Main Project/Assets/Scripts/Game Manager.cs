@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     {
         // grab all ships, and put them into activeShips
 
-        // grab all player ships and store them in savedPlayerShips
+        // for all ships in activeShips
+        //      if ship isEnemy is false
+        //          add to savedPlayerShips
     }
 
     // Update is called once per frame
@@ -36,7 +38,8 @@ public class GameManager : MonoBehaviour
             ship.Move();
         }
 
-        // clear activeShips
+        // Empty activeShips and then fill it up with all active ships, to keep it updated in case of ship destructions
+        activeShips = null;
         // grab all ships, put them into activeShips
 
         TurnIncrease();
