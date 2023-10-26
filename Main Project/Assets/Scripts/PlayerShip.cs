@@ -17,7 +17,8 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if hit, perform Hit()
+        // if attacked
+        //      Hit()
     }
 
     public void Move()
@@ -25,8 +26,9 @@ public class PlayerShip : MonoBehaviour
         // check if object is infront of ship
         // if not
         //      move forward one square
-        // else if object is enemy ship
-        //      Attack()
+        // else if object is PlayerShip
+        //      If PlayerShip isEnemy is true
+        //          Attack()
     }
 
     public void Status(bool status)
