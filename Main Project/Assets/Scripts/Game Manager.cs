@@ -12,16 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI roundEndText;
     [SerializeField] float playerHealth = 10f;
     [SerializeField] float enemyHealth = 10f;
-    private float roundTracker = 0f;
-    private float turnTracker = 0f;
+    private float roundTracker = 1f;
+    private float turnTracker = 1f;
     //PlayerShip[] savedPlayerShips;
     PlayerShip[] activeShips;
 
     // Start is called before the first frame update
     void Start()
     {
-        //RoundIncrease();
-        //TurnIncrease();
         // grab all ships, and put them into activeShips
 
         // grab all player ships and store them in savedPlayerShips
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetTurn()
     {
-        turnTracker = 0f;
+        turnTracker = 1f;
         Debug.Log("Turn: " + turnTracker);
     }
 }
