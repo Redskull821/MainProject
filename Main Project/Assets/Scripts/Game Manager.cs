@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // grab all ships, and put them into activeShips
-
+        /*
         for (int i = 0; i < activeShips.Count; i++)
         {
             PlayerShip ship = activeShips[i];
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
                 savedPlayerShips.Add(ship);
             }
         }
+        */
     }
 
     // Update is called once per frame
