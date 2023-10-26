@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [SerializeField] float health = 3f;
-    [SerializeField] float dmg = 2f;
+    //[SerializeField] float dmg = 2f;
     private bool isEnemy;
 
     // Start is called before the first frame update
