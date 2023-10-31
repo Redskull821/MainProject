@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     [SerializeField] float health = 3f;
-    //[SerializeField] float dmg = 2f;
-    private bool isEnemy;
+    [SerializeField] GameObject laser;
+    [SerializeField] bool isEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -17,23 +17,7 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if attacked
-        //      Hit()
-    }
-
-    public void Move()
-    {
-        // check if object is infront of ship
-        // if not
-        //      move forward one square
-        // else if object is PlayerShip
-        //      If PlayerShip isEnemy is true
-        //          Attack()
-    }
-
-    public void Status(bool status)
-    {
-        isEnemy = status;
+        if (GetInput())
     }
 
     public bool CheckStatus()
@@ -41,13 +25,21 @@ public class PlayerShip : MonoBehaviour
         return isEnemy;
     }
 
-    private void Hit()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        health -= 2;
+        if (collision.gameObject.tag == "Ship")
+        {
+            Destroy(collision.gameObject);
+            health -= 2f;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
-    private void Attack()
+    public void Attack()
     {
-        // deal damage to object
+        Instantiate(laser, transform.position, Quaternion.identity);
     }
 }
