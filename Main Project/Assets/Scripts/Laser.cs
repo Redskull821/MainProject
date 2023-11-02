@@ -10,5 +10,9 @@ public class Laser : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(laserSpeed, 0, -1) * Time.deltaTime;
+        if (transform.position.x >= 10 || transform.position.x <= -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }

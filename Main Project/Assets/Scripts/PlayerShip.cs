@@ -17,29 +17,41 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetInput())
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
+        }
     }
 
-    public bool CheckStatus()
+    public bool Status()
     {
         return isEnemy;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ship")
+        if (collision.gameObject.tag == "Laser")
         {
             Destroy(collision.gameObject);
             health -= 2f;
             if (health <= 0)
             {
                 Destroy(gameObject);
+                if (isEnemy)
+                {
+                    MyEvents.enemyUnitKilled.Invoke();
+                }
+                else
+                {
+                    MyEvents.playerUnitKilled.Invoke();
+                }
             }
         }
     }
 
     public void Attack()
     {
-        Instantiate(laser, transform.position, Quaternion.identity);
+        GameObject blast = Instantiate(laser, transform.position, transform.rotation);
+        blast.transform.Rotate(new Vector3(0, 0, 180));
     }
 }
