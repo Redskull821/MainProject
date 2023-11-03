@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float playerHealth = 10f;
     [SerializeField] float enemyHealth = 10f;
 
-    private float roundTracker = 1f;
+    private float roundTracker = 0f;
     private float turnTracker = 1f;
     private bool roundOver;
 
@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        GameObject[] ships = GameObject.FindGameObjectsWithTag("Ship");
         foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
             activeShips.Add(ship);
@@ -61,63 +60,53 @@ public class GameManager : MonoBehaviour
 
     public void RoundStart()
     {
-        //readyButton.gameObject.SetActive(false);
+        roundTracker++;
+        roundTrackerText.text = "Round: " + roundTracker;
+        readyButton.gameObject.SetActive(false);
+        roundEndText.gameObject.SetActive(false);
         // spawn enemies
-        activeShips = GameObject.FindGameObjectsWithTag("Ship");
-        for (int i = 0; i < activeShips.Length; i++)
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
-            PlayerShip ship = activeShips[i].GetComponent<PlayerShip>();
-            if (ship.Status())
+            activeShips.Add(ship);
+            PlayerShip player = ship.GetComponent<PlayerShip>();
+            if (player.Status())
             {
-                enemyShips.Add(activeShips[i]);
+                enemyShips.Add(ship);
             }
             else
             {
-                playerShips.Add(activeShips[i]);
+                playerShips.Add(ship);
             }
         }
-        while (!roundOver) {
-            StartCoroutine(Turn());
-            if (roundOver)
-            {
-                StopAllCoroutines();
-                RoundEnd();
-            }
-        }
+        StartCoroutine(Turn());
     }
 
     IEnumerator Turn()
     {
-        activeShips = GameObject.FindGameObjectsWithTag("Ship");
-        for (int i = 0; i < activeShips.Length; i++)
-        {
-            PlayerShip ship = activeShips[i].GetComponent<PlayerShip>();
-            ship.Attack();
-            yield return new WaitForSeconds(3);
+        while (!roundOver) {
+            foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
+            {
+                if (ship != null) 
+                {
+                    PlayerShip unit = ship.GetComponent<PlayerShip>();
+                    unit.Attack();
+                    yield return new WaitForSeconds(1);
+                }
+            }
+            turnTracker += 1f;
+            if (enemyShips.Count == 0 || playerShips.Count == 0)
+            {
+                roundOver = true;
+                RoundEnd();
+            }
         }
-
-        turnTracker += 1f;
-        if (enemyShips.Count == 0 || playerShips.Count == 0)
-        {
-            roundOver = true;
-        }
-    }
-
-    private void RoundIncrease()
-    {
-        roundTracker++;
-        roundTrackerText.text = "Round: " + roundTracker;
     }
 
     private void RoundEnd()
     {
         ResetTurn();
         roundEndText.gameObject.SetActive(true);
-    }
-
-    private void TurnIncrease()
-    {
-        turnTracker++;
+        readyButton.gameObject.SetActive(true);
     }
 
     private void ResetTurn()
@@ -128,37 +117,30 @@ public class GameManager : MonoBehaviour
     private void EnemyDestroyed()
     {
         enemyShips.Clear();
-        Debug.Log(enemyShips.Count);
-
-        GameObject[] ships = GameObject.FindGameObjectsWithTag("Ship");
-        Debug.Log(ships.Length);
-
-        for (int i = 0; i < activeShips.Length; i++)
+        activeShips.Clear();
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
-            PlayerShip ship = activeShips[i].GetComponent<PlayerShip>();
-            if (ship.Status())
+            PlayerShip player = ship.GetComponent<PlayerShip>();
+            activeShips.Add(ship);
+            if (player.Status())
             {
-                enemyShips.Add(activeShips[i]);
-                Debug.Log("Ship added");
+                enemyShips.Add(ship);
             }
         }
-        //Debug.Log("Enemy Ships: " + enemyShips.Count);
-        //Debug.Log("Active Ships: " + activeShips.Length);
     }
 
     private void AllyDestroyed()
     {
         playerShips.Clear();
-        activeShips = GameObject.FindGameObjectsWithTag("Ship");
-        for (int i = 0; i < activeShips.Length; i++)
+        activeShips.Clear();
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
-            PlayerShip ship = activeShips[i].GetComponent<PlayerShip>();
-            if (!ship.Status())
+            activeShips.Add(ship);
+            PlayerShip player = ship.GetComponent<PlayerShip>();
+            if (!player.Status())
             {
-                playerShips.Add(activeShips[i]);
+                playerShips.Add(ship);
             }
         }
-        //Debug.Log("Ally Ships: " + playerShips.Count);
-        //Debug.Log("Active Ships: " + activeShips.Length);
     }
 }

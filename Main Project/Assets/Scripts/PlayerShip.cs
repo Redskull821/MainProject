@@ -11,7 +11,7 @@ public class PlayerShip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,6 +28,12 @@ public class PlayerShip : MonoBehaviour
         return isEnemy;
     }
 
+    public void Attack()
+    {
+        GameObject blast = Instantiate(laser, transform.position, transform.rotation);
+        blast.transform.Rotate(new Vector3(0, 0, 180));
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Laser")
@@ -37,21 +43,19 @@ public class PlayerShip : MonoBehaviour
             if (health <= 0)
             {
                 Destroy(gameObject);
-                if (isEnemy)
-                {
-                    MyEvents.enemyUnitKilled.Invoke();
-                }
-                else
-                {
-                    MyEvents.playerUnitKilled.Invoke();
-                }
             }
         }
     }
 
-    public void Attack()
+    private void OnDestroy()
     {
-        GameObject blast = Instantiate(laser, transform.position, transform.rotation);
-        blast.transform.Rotate(new Vector3(0, 0, 180));
+        if (isEnemy)
+        {
+            MyEvents.enemyUnitKilled.Invoke();
+        }
+        else
+        {
+            MyEvents.playerUnitKilled.Invoke();
+        }
     }
 }
