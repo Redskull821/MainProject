@@ -7,6 +7,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField] float health = 3f;
     [SerializeField] GameObject laser;
     [SerializeField] bool isEnemy;
+    private bool selected;
 
     // Start is called before the first frame update
     void Start()
@@ -17,15 +18,20 @@ public class PlayerShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
+        // if cursor is over ship and mouse1 is pushed down
+        //      select ship
+        // if ship is selected and a posiiton is selected
+        //      move ship to position
     }
 
     public bool Status()
     {
         return isEnemy;
+    }
+
+    public bool Selected()
+    {
+        return selected;
     }
 
     public void Attack()

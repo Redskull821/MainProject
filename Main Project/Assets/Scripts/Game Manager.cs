@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private float roundTracker = 0f;
     private float turnTracker = 1f;
     private bool roundOver;
+    private GameObject selectShip;
 
     List<GameObject> playerShips = new List<GameObject>();
     List<GameObject> enemyShips = new List<GameObject>();
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         MyEvents.playerLoses.AddListener(PlayerLoss);
         MyEvents.enemyUnitKilled.AddListener(EnemyDestroyed);
         MyEvents.enemyLoses.AddListener(EnemyLoss);
+        MyEvents.shipSelected.AddListener(SelectShip);
     }
 
     // Update is called once per frame
@@ -108,9 +110,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ResetTurn()
+    private void SelectShip()
     {
-        turnTracker = 1f;
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
+        {
+            PlayerShip player = ship.gameObject.GetComponent<PlayerShip>();
+            if (player.Selected())
+            {
+                selectShip = ship;
+                break;
+            }
+        }
     }
 
     private void PlayerLoss()
@@ -123,7 +133,7 @@ public class GameManager : MonoBehaviour
     private void EnemyLoss()
     {
         StopAllCoroutines();
-        ResetTurn();
+        turnTracker = 1f;
         roundEndText.gameObject.SetActive(true);
         readyButton.gameObject.SetActive(true);
     }
