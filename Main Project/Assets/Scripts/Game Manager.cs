@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI roundTrackerText;
     [SerializeField] TextMeshProUGUI roundEndText;
+    [SerializeField] TextMeshProUGUI gameOverText;
     [SerializeField] GameObject readyButton;
-    [SerializeField] float playerHealth = 10f;
-    [SerializeField] float enemyHealth = 10f;
+    [SerializeField] GameObject menuButton; 
 
     private float roundTracker = 0f;
     private float turnTracker = 1f;
@@ -44,7 +44,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         MyEvents.playerUnitKilled.AddListener(AllyDestroyed);
+        MyEvents.playerLoses.AddListener(PlayerLoss);
         MyEvents.enemyUnitKilled.AddListener(EnemyDestroyed);
+        MyEvents.enemyLoses.AddListener(EnemyLoss);
     }
 
     // Update is called once per frame
@@ -56,6 +58,15 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void ReturnToMenu()
+    {
+        roundEndText.gameObject.SetActive(false);
+        gameOverText.gameObject.SetActive(false);
+        readyButton.gameObject.SetActive(false);
+        menuButton.gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
     }
 
     public void RoundStart()
@@ -94,24 +105,43 @@ public class GameManager : MonoBehaviour
                 }
             }
             turnTracker += 1f;
+            /*
             if (enemyShips.Count == 0 || playerShips.Count == 0)
             {
                 roundOver = true;
                 RoundEnd();
             }
+            */
         }
     }
 
+    /*
     private void RoundEnd()
     {
         ResetTurn();
         roundEndText.gameObject.SetActive(true);
         readyButton.gameObject.SetActive(true);
     }
+    */
 
     private void ResetTurn()
     {
         turnTracker = 1f;
+    }
+
+    private void PlayerLoss()
+    {
+        StopAllCoroutines();
+        gameOverText.gameObject.SetActive(true);
+        menuButton.gameObject.SetActive(true);
+    }
+
+    private void EnemyLoss()
+    {
+        StopAllCoroutines();
+        ResetTurn();
+        roundEndText.gameObject.SetActive(true);
+        readyButton.gameObject.SetActive(true);
     }
 
     private void EnemyDestroyed()
