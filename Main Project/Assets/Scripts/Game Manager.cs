@@ -105,24 +105,8 @@ public class GameManager : MonoBehaviour
                 }
             }
             turnTracker += 1f;
-            /*
-            if (enemyShips.Count == 0 || playerShips.Count == 0)
-            {
-                roundOver = true;
-                RoundEnd();
-            }
-            */
         }
     }
-
-    /*
-    private void RoundEnd()
-    {
-        ResetTurn();
-        roundEndText.gameObject.SetActive(true);
-        readyButton.gameObject.SetActive(true);
-    }
-    */
 
     private void ResetTurn()
     {
