@@ -1057,6 +1057,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1413988877}
   readyButton: {fileID: 2161781}
   menuButton: {fileID: 375088461}
+  shipMover: {fileID: 1961367438}
 --- !u!4 &487689216
 Transform:
   m_ObjectHideFlags: 0
