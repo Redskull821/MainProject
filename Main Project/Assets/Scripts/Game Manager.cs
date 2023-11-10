@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI roundEndText;
     [SerializeField] TextMeshProUGUI gameOverText;
     [SerializeField] GameObject readyButton;
-    [SerializeField] GameObject menuButton; 
+    [SerializeField] GameObject menuButton;
+    [SerializeField] GameObject shipMover;
 
     private float roundTracker = 0f;
     private float turnTracker = 1f;
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void RoundStart()
     {
+        shipMover.gameObject.SetActive(false);
         roundStarted = true;
         roundTracker++;
         roundTrackerText.text = "Round: " + roundTracker;
@@ -120,6 +122,7 @@ public class GameManager : MonoBehaviour
     private void EnemyLoss()
     {
         StopAllCoroutines();
+        shipMover.gameObject.SetActive(true);
         roundStarted = false;
         turnTracker = 1f;
         roundEndText.gameObject.SetActive(true);
