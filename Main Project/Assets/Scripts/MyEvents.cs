@@ -10,4 +10,5 @@ public static class MyEvents
     public static UnityEvent playerLoses = new UnityEvent();
     public static UnityEvent enemyLoses = new UnityEvent();
     public static UnityEvent shipSelected = new UnityEvent();
+    public static UnityEvent newRound = new UnityEvent();
 }

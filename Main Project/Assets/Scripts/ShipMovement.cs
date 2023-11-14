@@ -5,16 +5,34 @@ using UnityEngine;
 public class ShipMovement : MonoBehaviour
 {
     private GameObject selectedShip;
+    private List<GameObject> playerShips = new List<GameObject>();
+    private bool approved = true;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
+        {
+            PlayerShip player = ship.GetComponent<PlayerShip>();
+            if (!player.Status())
+            {
+                playerShips.Add(ship);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
+        {
+            PlayerShip player = ship.GetComponent<PlayerShip>();
+            if (!player.Status())
+            {
+                playerShips.Add(ship);
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             ShipClick();
@@ -22,23 +40,64 @@ public class ShipMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && selectedShip.transform.position.y < -0.5)
         {
-            selectedShip.transform.position = new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y + 1.5f, selectedShip.transform.position.z);
+            foreach (GameObject ship in playerShips)
+            {
+                if (ship.transform.position == new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y + 1.5f, selectedShip.transform.position.z))
+                {
+                    approved = false;
+                }
+            }
+            if (approved) {
+                selectedShip.transform.position = new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y + 1.5f, selectedShip.transform.position.z);
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.S) && selectedShip.transform.position.y > -3.5)
         {
-            selectedShip.transform.position = new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y - 1.5f, selectedShip.transform.position.z);
+            foreach (GameObject ship in playerShips)
+            {
+                if (ship.transform.position == new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y - 1.5f, selectedShip.transform.position.z))
+                {
+                    approved = false;
+                }
+            }
+            if (approved) {
+                selectedShip.transform.position = new Vector3(selectedShip.transform.position.x, selectedShip.transform.position.y - 1.5f, selectedShip.transform.position.z);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.A) && selectedShip.transform.position.x > -7.4)
         {
-            selectedShip.transform.position = new Vector3(selectedShip.transform.position.x - 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z);
+            foreach (GameObject ship in playerShips)
+            {
+                if (ship.transform.position == new Vector3(selectedShip.transform.position.x - 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z))
+                {
+                    approved = false;
+                }
+            }
+            if (approved)
+            {
+                selectedShip.transform.position = new Vector3(selectedShip.transform.position.x - 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.D) && selectedShip.transform.position.x < -2.9)
         {
-            selectedShip.transform.position = new Vector3(selectedShip.transform.position.x + 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z);
+            foreach (GameObject ship in playerShips)
+            {
+                if (ship.transform.position == new Vector3(selectedShip.transform.position.x + 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z))
+                {
+                    approved = false;
+                }
+            }
+            if (approved)
+            {
+                selectedShip.transform.position = new Vector3(selectedShip.transform.position.x + 1.5f, selectedShip.transform.position.y, selectedShip.transform.position.z);
+            }
         }
+
+        approved = true;
     }
 
     private void ShipClick()

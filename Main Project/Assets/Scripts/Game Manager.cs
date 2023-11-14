@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuButton;
     [SerializeField] GameObject shipMover;
 
+    [SerializeField] GameObject[] roundOne;
+    [SerializeField] GameObject[] roundTwo;
+    [SerializeField] GameObject[] roundThree;
+
     private float roundTracker = 0f;
     private float turnTracker = 1f;
     private bool roundOver;
@@ -73,13 +77,14 @@ public class GameManager : MonoBehaviour
 
     public void RoundStart()
     {
+        MyEvents.newRound.Invoke();
         shipMover.gameObject.SetActive(false);
         roundStarted = true;
         roundTracker++;
         roundTrackerText.text = "Round: " + roundTracker;
         readyButton.gameObject.SetActive(false);
         roundEndText.gameObject.SetActive(false);
-        // spawn enemies
+        NewRound();
         foreach (GameObject ship in GameObject.FindGameObjectsWithTag("Ship"))
         {
             activeShips.Add(ship);
@@ -112,6 +117,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void NewRound()
+    {
+        if (roundTracker == 1)
+        {
+            for (int i = 0; i < roundOne.Length; i++)
+            {
+                roundOne[i].gameObject.SetActive(true);
+            }
+        }
+        /*
+        else if (roundTracker == 2)
+        {
+            for (int i = 0; i < roundTwo.Length; i++)
+            {
+                roundTwo[i].gameObject.SetActive(true);
+            }
+        }
+        else if (roundTracker == 3)
+        {
+            for (int i = 0; i < roundThree.Length; i++)
+            {
+                roundThree[i].gameObject.SetActive(true);
+            }
+        }
+        */
+        else
+        {
+            Debug.Log("No More Rounds...");
+        }
+    }
+    
     private void PlayerLoss()
     {
         StopAllCoroutines();
@@ -122,6 +158,11 @@ public class GameManager : MonoBehaviour
     private void EnemyLoss()
     {
         StopAllCoroutines();
+        for (int i = 0; i < enemyShips.Count; i++)
+        {
+            enemyShips[i].gameObject.SetActive(false);
+            enemyShips.Remove(enemyShips[i]);
+        }
         shipMover.gameObject.SetActive(true);
         roundStarted = false;
         turnTracker = 1f;

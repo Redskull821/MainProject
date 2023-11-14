@@ -12,13 +12,18 @@ public class PlayerShip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        MyEvents.newRound.AddListener(Reset);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Reset()
+    {
+        health = 3f;
     }
 
     public bool Status()
