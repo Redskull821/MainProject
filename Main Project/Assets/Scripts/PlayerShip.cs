@@ -13,6 +13,7 @@ public class PlayerShip : MonoBehaviour
     void Start()
     {
         MyEvents.newRound.AddListener(Reset);
+        MyEvents.roundEnd.AddListener(Deactivate);
     }
 
     // Update is called once per frame
@@ -21,6 +22,15 @@ public class PlayerShip : MonoBehaviour
         
     }
 
+    private void Deactivate()
+    {
+        if (isEnemy)
+        {
+            gameObject.SetActive(false);
+            Debug.Log("Ship decactivated...");
+        }
+    }
+    
     public void Reset()
     {
         health = 3f;

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI roundTrackerText;
     [SerializeField] TextMeshProUGUI roundEndText;
     [SerializeField] TextMeshProUGUI gameOverText;
+    [SerializeField] TextMeshProUGUI finalRoundText;
     [SerializeField] GameObject readyButton;
     [SerializeField] GameObject menuButton;
     [SerializeField] GameObject shipMover;
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            finalRoundText.gameObject.SetActive(true);
             for (int i = 0; i < gameOver.Length; i++)
             {
                 gameOver[i].gameObject.SetActive(true);
@@ -155,6 +157,7 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         gameOverText.gameObject.SetActive(true);
         menuButton.gameObject.SetActive(true);
+        finalRoundText.gameObject.SetActive(false);
     }
 
     private void EnemyLoss()
@@ -169,11 +172,13 @@ public class GameManager : MonoBehaviour
         {
             playerShips[i].gameObject.SetActive(true);
         }
+        MyEvents.roundEnd.Invoke();
         shipMover.gameObject.SetActive(true);
         roundStarted = false;
         turnTracker = 1f;
         roundEndText.gameObject.SetActive(true);
         readyButton.gameObject.SetActive(true);
+        finalRoundText.gameObject.SetActive(false);
     }
 
     private void EnemyDestroyed()

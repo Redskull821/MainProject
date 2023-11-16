@@ -26,6 +26,7 @@ public class UserHitBox : MonoBehaviour
     private void HealthReset()
     {
         enemyHealth = 10f;
+        enemyHealthText.text = "Enemy: " + enemyHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
