@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] roundOne;
     [SerializeField] GameObject[] roundTwo;
     [SerializeField] GameObject[] roundThree;
+    [SerializeField] GameObject[] gameOver;
 
     private float roundTracker = 0f;
     private float turnTracker = 1f;
@@ -126,7 +127,6 @@ public class GameManager : MonoBehaviour
                 roundOne[i].gameObject.SetActive(true);
             }
         }
-        /*
         else if (roundTracker == 2)
         {
             for (int i = 0; i < roundTwo.Length; i++)
@@ -141,10 +141,12 @@ public class GameManager : MonoBehaviour
                 roundThree[i].gameObject.SetActive(true);
             }
         }
-        */
         else
         {
-            Debug.Log("No More Rounds...");
+            for (int i = 0; i < gameOver.Length; i++)
+            {
+                gameOver[i].gameObject.SetActive(true);
+            }
         }
     }
     
@@ -162,6 +164,10 @@ public class GameManager : MonoBehaviour
         {
             enemyShips[i].gameObject.SetActive(false);
             enemyShips.Remove(enemyShips[i]);
+        }
+        for (int i =0; i < playerShips.Count; i++)
+        {
+            playerShips[i].gameObject.SetActive(true);
         }
         shipMover.gameObject.SetActive(true);
         roundStarted = false;

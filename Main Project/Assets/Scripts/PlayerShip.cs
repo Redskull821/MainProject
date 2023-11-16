@@ -45,7 +45,13 @@ public class PlayerShip : MonoBehaviour
             health -= 2f;
             if (health <= 0)
             {
-                Destroy(gameObject);
+                if (isEnemy) { 
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }
